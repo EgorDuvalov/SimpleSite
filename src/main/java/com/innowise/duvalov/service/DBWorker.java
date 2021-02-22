@@ -27,7 +27,7 @@ public enum DBWorker {
         }
 
         User user = new User(roleNumber, login, pass, email);
-        new UserDAO().writeToDB(user);
+        UserDAO.INSTANCE.writeToDB(user);
         return "User '" + login + "' added successfully";
     }
 

@@ -16,13 +16,13 @@ public class User {
     private String email;
 
     public User() {
-
     }
 
     public User(String role, String login, String password, String email) {
         this.role = (role.equals("1")) ? Role.Admin : Role.Client;
         this.login = login;
         this.password = password;
+        this.email = email;
     }
 
     @Override

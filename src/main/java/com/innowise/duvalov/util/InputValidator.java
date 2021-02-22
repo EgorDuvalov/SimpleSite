@@ -1,19 +1,12 @@
 package com.innowise.duvalov.util;
 
-import com.innowise.duvalov.pool.ConnectionPool;
+import com.innowise.duvalov.dao.UserDAO;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public final class InputValidator {
 
-    private static final String TAKE_USER_BY_LOGIN =
-            "SELECT COUNT(id) FROM users WHERE login = ?";
 
     private final String login;
     private final String pass;
@@ -61,11 +54,11 @@ public final class InputValidator {
     }
 
     private boolean checkRole() {
-        if (role.equals("0") || role.equals("1")) {
-            return true;
+        if (role == null || (!role.equals("0") && !role.equals("1"))) {
+            feedback = "Incorrect role value";
+            return false;
         }
-        feedback = "Incorrect role value";
-        return false;
+        return true;
     }
 
     private boolean checkEmail() {
@@ -83,18 +76,8 @@ public final class InputValidator {
     }
 
     public boolean isLoginTaken() {
-        ConnectionPool.INSTANCE.openPool();
-        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement ps = connection.prepareStatement(TAKE_USER_BY_LOGIN)
-        ) {
-            ps.setString(1, login);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            if (rs.getInt(1) == 0) {
-                return false;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        if (UserDAO.INSTANCE.findUserByLogin(login) == 0) {
+            return false;
         }
         feedback += "Login '" + login + "' is already taken";
         return true;
