@@ -20,9 +20,9 @@
         </label>
 
         <p>
-            <input type="radio" id="admin" name="role" value="1">
+            <input type="radio" id="admin" name="role" value=1>
             <label for="admin">Admin </label><br>
-            <input type="radio" id="client" name="role" value="0">
+            <input type="radio" id="client" name="role" value=0>
             <label for="client">Client </label><br>
         </p>
     </div>
@@ -37,8 +37,7 @@
     <%
         if (request.getAttribute("Feedback") == null) {
             out.println("");
-        }
-        else {
+        } else {
             out.println(request.getAttribute("Feedback"));
         }
     %>

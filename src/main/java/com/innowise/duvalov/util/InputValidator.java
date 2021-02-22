@@ -2,7 +2,6 @@ package com.innowise.duvalov.util;
 
 import com.innowise.duvalov.dao.UserDAO;
 import lombok.Getter;
-import lombok.Setter;
 import java.util.regex.Pattern;
 
 public final class InputValidator {

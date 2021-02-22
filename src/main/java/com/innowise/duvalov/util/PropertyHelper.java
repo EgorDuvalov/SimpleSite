@@ -1,6 +1,5 @@
 package com.innowise.duvalov.util;
 
-import com.innowise.duvalov.pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;

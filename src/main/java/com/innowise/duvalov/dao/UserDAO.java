@@ -1,5 +1,6 @@
 package com.innowise.duvalov.dao;
 
+import com.innowise.duvalov.command.sql.SQLCommands;
 import com.innowise.duvalov.entity.User;
 import com.innowise.duvalov.pool.ConnectionPool;
 
@@ -10,21 +11,17 @@ import java.sql.SQLException;
 
 public enum UserDAO {
     INSTANCE;
-    private static final String WRITE_USER_TO_DB =
-            "INSERT INTO USERS (login, password, role,email) VALUES (?,?,?,?)";
-
-    private static final String TAKE_USER_BY_LOGIN =
-            "SELECT COUNT(id) FROM users WHERE login = ?";
 
     public void writeToDB(User user) {
-        Connection connection = ConnectionPool.INSTANCE.getConnection();
-        try (PreparedStatement ps = connection.prepareStatement(WRITE_USER_TO_DB)) {
-            ps.setString(1, user.getLogin());
-            ps.setString(2, user.getPassword());
-            ps.setInt(3, user.getRole().getRoleNumber());
-            ps.setString(4, user.getEmail());
+        try (Connection connection = ConnectionPool.INSTANCE.getConnection();
+             PreparedStatement ps = connection.prepareStatement(SQLCommands.WRITE_USER_TO_DB.getCommand())
+        ) {
+            int parameterIndex = 0;
+            ps.setString(++parameterIndex, user.getLogin());
+            ps.setString(++parameterIndex, user.getPassword());
+            ps.setInt(++parameterIndex, user.getRole().getRoleNumber());
+            ps.setString(++parameterIndex, user.getEmail());
             ps.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -34,9 +31,8 @@ public enum UserDAO {
      * Returns amount of users with provided login
      */
     public int findUserByLogin(String login) {
-        ConnectionPool.INSTANCE.openPool();
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement ps = connection.prepareStatement(TAKE_USER_BY_LOGIN)
+             PreparedStatement ps = connection.prepareStatement(SQLCommands.TAKE_USER_BY_LOGIN.getCommand())
         ) {
             ps.setString(1, login);
             ResultSet rs = ps.executeQuery();

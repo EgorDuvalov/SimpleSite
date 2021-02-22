@@ -1,5 +1,6 @@
 package com.innowise.duvalov.servlet;
 
+import com.innowise.duvalov.pool.ConnectionPool;
 import com.innowise.duvalov.service.UserService;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SignUpServlet extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        ConnectionPool.INSTANCE.openPool();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/views/signup.jsp").forward(request, response);
@@ -16,6 +23,7 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getParameter("pass");
         request.setAttribute("Feedback",
                 UserService.INSTANCE.signUp(
                         request.getParameter("login"),
@@ -23,5 +31,9 @@ public class SignUpServlet extends HttpServlet {
                         request.getParameter("role"),
                         request.getParameter("email")));
         doGet(request, response);
+    }
+
+    private void hashPass(String pass){
+
     }
 }
