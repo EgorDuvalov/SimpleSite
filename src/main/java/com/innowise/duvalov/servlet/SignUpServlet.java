@@ -1,6 +1,6 @@
 package com.innowise.duvalov.servlet;
 
-import com.innowise.duvalov.service.DBWorker;
+import com.innowise.duvalov.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +17,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("Feedback",
-                DBWorker.INSTANCE.signUp(
+                UserService.INSTANCE.signUp(
                         request.getParameter("login"),
                         request.getParameter("pass"),
                         request.getParameter("role"),
