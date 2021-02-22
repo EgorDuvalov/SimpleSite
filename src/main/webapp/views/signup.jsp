@@ -14,6 +14,11 @@
         <label>Password:
             <input type="password" name="pass"><br/>
         </label>
+
+        <label>Email:
+            <input type="email" name="email"><br/>
+        </label>
+
         <p>
             <input type="radio" id="admin" name="role" value="1">
             <label for="admin">Admin </label><br>

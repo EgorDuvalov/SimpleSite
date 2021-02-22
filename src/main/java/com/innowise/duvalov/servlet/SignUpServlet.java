@@ -20,7 +20,8 @@ public class SignUpServlet extends HttpServlet {
                 DBWorker.INSTANCE.signUp(
                         request.getParameter("login"),
                         request.getParameter("pass"),
-                        request.getParameter("role")));
+                        request.getParameter("role"),
+                        request.getParameter("email")));
         doGet(request, response);
     }
 }

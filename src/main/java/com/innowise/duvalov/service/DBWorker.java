@@ -15,8 +15,8 @@ public enum DBWorker {
     INSTANCE;
 
 
-    public String signUp(String login, String pass, String roleNumber) {
-        InputValidator validator = new InputValidator(login, pass, roleNumber);
+    public String signUp(String login, String pass, String roleNumber, String email) {
+        InputValidator validator = new InputValidator(login, pass, roleNumber, email);
 
         if (validator.isInputIncorrect()) {
             return validator.getFeedback();
@@ -26,7 +26,7 @@ public enum DBWorker {
             return validator.getFeedback();
         }
 
-        User user = new User(roleNumber, login, pass);
+        User user = new User(roleNumber, login, pass, email);
         new UserDAO().writeToDB(user);
         return "User '" + login + "' added successfully";
     }

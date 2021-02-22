@@ -13,12 +13,13 @@ public class User {
     private String login;
     private Role role;
     private String password;
+    private String email;
 
     public User() {
 
     }
 
-    public User(String role, String login, String password) {
+    public User(String role, String login, String password, String email) {
         this.role = (role.equals("1")) ? Role.Admin : Role.Client;
         this.login = login;
         this.password = password;
@@ -34,16 +35,17 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, role);
+        return Objects.hash(id, login, role, password, email);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + login + '\'' +
+                ", login='" + login + '\'' +
                 ", role=" + role +
                 ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
