@@ -1,7 +1,8 @@
 package com.innowise.duvalov.servlet;
 
+import com.innowise.duvalov.command.Command;
+import com.innowise.duvalov.factory.CommandFactory;
 import com.innowise.duvalov.pool.ConnectionPool;
-import com.innowise.duvalov.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SignUpServlet extends HttpServlet {
+
+    private static final CommandFactory COMMAND_FACTORY = new CommandFactory();
 
     @Override
     public void init() throws ServletException {
@@ -23,17 +26,8 @@ public class SignUpServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getParameter("pass");
-        request.setAttribute("Feedback",
-                UserService.INSTANCE.signUp(
-                        request.getParameter("login"),
-                        request.getParameter("pass"),
-                        request.getParameter("role"),
-                        request.getParameter("email")));
+        Command command = COMMAND_FACTORY.getCommand("SEND_USER");
+        command.execute(request, response);
         doGet(request, response);
-    }
-
-    private void hashPass(String pass){
-
     }
 }
