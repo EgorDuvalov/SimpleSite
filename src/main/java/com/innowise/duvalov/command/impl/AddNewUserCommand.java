@@ -19,17 +19,24 @@ public class AddNewUserCommand implements Command {
     }
 
     private String hashPass(HttpServletRequest request) {
-        StringBuilder pass = new StringBuilder(request.getParameter("pass"));
+        String mix = request.getParameter("pass") + request.getParameter("login");
+        StringBuilder pass = new StringBuilder(mix);
         pass.reverse();
         for (int i = 0; i < pass.length(); i++) {
-            byte tmp = (byte) pass.charAt(i);
-            tmp += i;
-            pass.setCharAt(i, (char) tmp);
+            int symb = pass.charAt(i);
+            if (symb > 47 && symb < 58) {
+                symb = 58 - symb + 47;
+            } else if (symb > 64 && symb < 91) {
+                symb = 91 - symb + 64 + 32; // switch letters and cast to Upper Case
+            } else if (symb > 96 && symb < 123) {
+                symb = 123 - symb + 96 - 32;
+            }
+            pass.setCharAt(i, (char) symb);
         }
-        StringBuilder s = new StringBuilder(pass.substring(pass.length() / 2));
+        StringBuilder s = new StringBuilder(pass.substring(pass.length() / 4));
         pass.insert(0, s);
         s.reverse();
-        pass.append(s);
+        pass.insert(pass.length(), s);
         return pass.toString();
     }
 }
