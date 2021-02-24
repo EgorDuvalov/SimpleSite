@@ -1,10 +1,16 @@
 package com.innowise.duvalov.util;
 
 import com.innowise.duvalov.dao.UserDAO;
+import com.innowise.duvalov.settings.DatabaseParameters;
+import lombok.Data;
 import lombok.Getter;
+
 import java.util.regex.Pattern;
 
 public final class UserInputValidator {
+    private final int MAX_LOGIN = DatabaseParameters.MAX_LOGIN.getSize();
+    private final int MAX_PASS = DatabaseParameters.MAX_PASS.getSize();
+    private final int MAX_EMAIL = DatabaseParameters.MAX_EMAIL.getSize();
 
 
     private final String login;
@@ -27,8 +33,8 @@ public final class UserInputValidator {
     }
 
     private boolean checkLogin() {
-        if (login.length() > 25) {
-            feedback = "Max login length is 65 symbols";
+        if (login.length() > MAX_LOGIN) {
+            feedback = "Max login length is " + MAX_LOGIN + " symbols";
             return false;
         }
         String correctLoginForm = "\\b[\\w.]+\\b";
@@ -40,8 +46,9 @@ public final class UserInputValidator {
     }
 
     private boolean checkPass() {
-        if (pass.length() > 25) {
-            feedback = "Max password length is 25 symbols";
+        if (pass.length() > MAX_PASS) {
+            int maxPassForInput = MAX_PASS / 2 - MAX_LOGIN;
+            feedback = "Max password length is " + maxPassForInput + " symbols";
             return false;
         }
         String correctPassForm = "\\b[\\w.]+\\b";
@@ -62,8 +69,8 @@ public final class UserInputValidator {
 
     private boolean checkEmail() {
 
-        if (email.length() > 65) {
-            feedback = "Max email length is 65 symbols";
+        if (email.length() > MAX_EMAIL) {
+            feedback = "Max email length is " + MAX_EMAIL + " symbols";
             return false;
         }
         String correctEmailForm = "\\b[A-Za-z0-9._]+@[A-Za-z]+\\.[A-Za-z]{2,4}\\b";
