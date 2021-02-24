@@ -4,7 +4,7 @@ import com.innowise.duvalov.dao.UserDAO;
 import lombok.Getter;
 import java.util.regex.Pattern;
 
-public final class InputValidator {
+public final class UserInputValidator {
 
 
     private final String login;
@@ -15,7 +15,7 @@ public final class InputValidator {
     @Getter
     private String feedback = "";
 
-    public InputValidator(String login, String pass, String role, String email) {
+    public UserInputValidator(String login, String pass, String role, String email) {
         this.login = login;
         this.pass = pass;
         this.role = role;

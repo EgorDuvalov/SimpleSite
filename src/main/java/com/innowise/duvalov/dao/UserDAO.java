@@ -1,6 +1,6 @@
 package com.innowise.duvalov.dao;
 
-import com.innowise.duvalov.command.sql.SQLCommands;
+import com.innowise.duvalov.command.SQLCommandList;
 import com.innowise.duvalov.entity.User;
 import com.innowise.duvalov.pool.ConnectionPool;
 
@@ -14,7 +14,7 @@ public enum UserDAO {
 
     public void writeToDB(User user) {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SQLCommands.WRITE_USER_TO_DB.getCommand())
+             PreparedStatement ps = connection.prepareStatement(SQLCommandList.WRITE_USER_TO_DB.getCommand())
         ) {
             int parameterIndex = 0;
             ps.setString(++parameterIndex, user.getLogin());
@@ -32,7 +32,7 @@ public enum UserDAO {
      */
     public int findUserByLogin(String login) {
         try (Connection connection = ConnectionPool.INSTANCE.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SQLCommands.TAKE_USER_BY_LOGIN.getCommand())
+             PreparedStatement ps = connection.prepareStatement(SQLCommandList.TAKE_USER_BY_LOGIN.getCommand())
         ) {
             ps.setString(1, login);
             ResultSet rs = ps.executeQuery();
