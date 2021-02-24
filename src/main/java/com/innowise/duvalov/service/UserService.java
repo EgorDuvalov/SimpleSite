@@ -7,16 +7,28 @@ import com.innowise.duvalov.util.UserInputValidator;
 public enum UserService {
     INSTANCE;
 
-
+    public String signIn(String login, String pass) {
+        UserInputValidator validator = new UserInputValidator();
+        if (validator.isInputIncorrect(login, pass)) {
+            return validator.getFeedback();
+        }
+        if (!validator.isLoginTaken(login)) {
+            return "No user with this login";
+        }
+        if (!UserDAO.INSTANCE.isPassCorrect(login, pass)) {
+            return "Wrong password";
+        }
+        return "Signed In!";
+    }
 
     public String signUp(String login, String pass, String role, String email) {
-        UserInputValidator validator = new UserInputValidator(login, pass, role, email);
+        UserInputValidator validator = new UserInputValidator();
 
-        if (validator.isInputIncorrect()) {
+        if (validator.isInputIncorrect(login, pass, role, email)) {
             return validator.getFeedback();
         }
 
-        if (validator.isLoginTaken()) {
+        if (validator.isLoginTaken(login)) {
             return validator.getFeedback();
         }
 

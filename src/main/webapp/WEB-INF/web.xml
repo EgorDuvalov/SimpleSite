@@ -8,7 +8,6 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
-    <!--registration servlet-->
     <servlet>
         <servlet-name>SignUpServlet</servlet-name>
         <servlet-class>com.innowise.duvalov.servlet.SignUpServlet</servlet-class>
@@ -17,6 +16,16 @@
     <servlet-mapping>
         <servlet-name>SignUpServlet</servlet-name>
         <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SignInServlet</servlet-name>
+        <servlet-class>com.innowise.duvalov.servlet.SignInServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignInServlet</servlet-name>
+        <url-pattern>/signin</url-pattern>
     </servlet-mapping>
 
 </web-app>

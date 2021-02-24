@@ -12,27 +12,17 @@ public final class UserInputValidator {
     private final int MAX_PASS = DatabaseParameters.MAX_PASS.getSize();
     private final int MAX_EMAIL = DatabaseParameters.MAX_EMAIL.getSize();
 
-
-    private final String login;
-    private final String pass;
-    private final String role;
-    private final String email;
-
     @Getter
     private String feedback = "";
 
-    public UserInputValidator(String login, String pass, String role, String email) {
-        this.login = login;
-        this.pass = pass;
-        this.role = role;
-        this.email = email;
+    public boolean isInputIncorrect(String login, String pass) {
+        return (!checkLogin(login) || !checkPass(pass));
+    }
+    public boolean isInputIncorrect(String login, String pass, String role, String email) {
+        return (!checkLogin(login) || !checkPass(pass) || !checkRole(role) || !checkEmail(email));
     }
 
-    public boolean isInputIncorrect() {
-        return (!checkLogin() || !checkPass() || !checkRole() || !checkEmail());
-    }
-
-    private boolean checkLogin() {
+    private boolean checkLogin(String login) {
         if (login.length() > MAX_LOGIN) {
             feedback = "Max login length is " + MAX_LOGIN + " symbols";
             return false;
@@ -45,7 +35,7 @@ public final class UserInputValidator {
         return true;
     }
 
-    private boolean checkPass() {
+    private boolean checkPass(String pass) {
         if (pass.length() > MAX_PASS) {
             int maxPassForInput = MAX_PASS / 2 - MAX_LOGIN;
             feedback = "Max password length is " + maxPassForInput + " symbols";
@@ -59,7 +49,7 @@ public final class UserInputValidator {
         return true;
     }
 
-    private boolean checkRole() {
+    private boolean checkRole(String role) {
         if (role == null || (!role.equals("0") && !role.equals("1"))) {
             feedback = "Incorrect role value";
             return false;
@@ -67,7 +57,7 @@ public final class UserInputValidator {
         return true;
     }
 
-    private boolean checkEmail() {
+    private boolean checkEmail(String email) {
 
         if (email.length() > MAX_EMAIL) {
             feedback = "Max email length is " + MAX_EMAIL + " symbols";
@@ -81,7 +71,7 @@ public final class UserInputValidator {
         return true;
     }
 
-    public boolean isLoginTaken() {
+    public boolean isLoginTaken(String login) {
         if (UserDAO.INSTANCE.findUserByLogin(login) == 0) {
             return false;
         }
