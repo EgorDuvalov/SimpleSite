@@ -1,6 +1,7 @@
 package com.innowise.duvalov.command.impl;
 
 import com.innowise.duvalov.command.Command;
+import com.innowise.duvalov.command.PageList;
 import com.innowise.duvalov.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

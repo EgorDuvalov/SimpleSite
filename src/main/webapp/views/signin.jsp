@@ -12,20 +12,30 @@
 </head>
 <body>
 <h1>Authorization</h1>
+<form method="post">
+    <div>
+        <label>Login:
+            <input type="text" name="login"><br/>
+        </label>
 
+        <label>Password:
+            <input type="password" name="pass"><br/>
+        </label>
+    </div>
+    <div>
+        <p>
+            <button type="submit">Submit</button>
+        </p>
+    </div>
+</form>
 <div>
-    <label>Login:
-        <input type="text" name="login"><br/>
-    </label>
-
-    <label>Password:
-        <input type="password" name="pass"><br/>
-    </label>
-</div>
-<div>
-    <p>
-        <button type="submit">Submit</button>
-    </p>
+    <%
+        if (request.getAttribute("Feedback") == null) {
+            out.println("");
+        } else {
+            out.println(request.getAttribute("Feedback"));
+        }
+    %>
 </div>
 </body>
 <div>

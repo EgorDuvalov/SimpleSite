@@ -18,6 +18,7 @@ public final class UserInputValidator {
     public boolean isInputIncorrect(String login, String pass) {
         return (!checkLogin(login) || !checkPass(pass));
     }
+
     public boolean isInputIncorrect(String login, String pass, String role, String email) {
         return (!checkLogin(login) || !checkPass(pass) || !checkRole(role) || !checkEmail(email));
     }
@@ -73,6 +74,7 @@ public final class UserInputValidator {
 
     public boolean isLoginTaken(String login) {
         if (UserDAO.INSTANCE.findUserByLogin(login) == 0) {
+            feedback += "No user with such login";
             return false;
         }
         feedback += "Login '" + login + "' is already taken";

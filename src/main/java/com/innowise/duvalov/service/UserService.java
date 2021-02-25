@@ -13,10 +13,10 @@ public enum UserService {
             return validator.getFeedback();
         }
         if (!validator.isLoginTaken(login)) {
-            return "No user with this login";
+            return validator.getFeedback();
         }
         if (!UserDAO.INSTANCE.isPassCorrect(login, pass)) {
-            return "Wrong password";
+            return "Wrong password!";
         }
         return "Signed In!";
     }

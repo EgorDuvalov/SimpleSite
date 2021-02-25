@@ -4,7 +4,7 @@
     <title>SignUp</title>
 </head>
 <body>
-<h2> Registration </h2>
+<h1> Registration </h1>
 <form method="post">
     <div>
         <label>Login:

@@ -14,6 +14,7 @@ public class SignUpServlet extends HttpServlet {
 
     private static final CommandFactory COMMAND_FACTORY = new CommandFactory();
 
+
     @Override
     public void init() throws ServletException {
         ConnectionPool.INSTANCE.openPool();
