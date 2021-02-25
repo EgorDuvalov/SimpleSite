@@ -8,6 +8,9 @@
 <!-- header -->
 <div>
     <h1>Welcome</h1>
+    <%
+        //TODO session is open
+    %>
 </div>
 
 <div>       <!-- content -->
