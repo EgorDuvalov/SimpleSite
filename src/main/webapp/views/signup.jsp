@@ -45,6 +45,6 @@
 </body>
 <div>
     <button onclick="location.href='/'"> Back to main</button>
-    <button onclick="location.href='/signin.jsp'"> Authorization</button>
+    <button onclick="location.href='/signin'"> Authorization</button>
 </div>
 </html>

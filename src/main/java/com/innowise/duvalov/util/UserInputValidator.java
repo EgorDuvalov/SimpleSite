@@ -1,16 +1,15 @@
 package com.innowise.duvalov.util;
 
 import com.innowise.duvalov.dao.UserDAO;
-import com.innowise.duvalov.settings.DatabaseParameters;
-import lombok.Data;
+import com.innowise.duvalov.config.UserInputConfig;
 import lombok.Getter;
 
 import java.util.regex.Pattern;
 
 public final class UserInputValidator {
-    private final int MAX_LOGIN = DatabaseParameters.MAX_LOGIN.getSize();
-    private final int MAX_PASS = DatabaseParameters.MAX_PASS.getSize();
-    private final int MAX_EMAIL = DatabaseParameters.MAX_EMAIL.getSize();
+    private final int MAX_LOGIN = UserInputConfig.MAX_LOGIN.getValue();
+    private final int MAX_PASS = UserInputConfig.MAX_PASS.getValue();
+    private final int MAX_EMAIL = UserInputConfig.MAX_EMAIL.getValue();
 
     @Getter
     private String feedback = "";

@@ -40,6 +40,6 @@
 </body>
 <div>
     <button onclick="location.href='/'">Back to main</button>
-    <button onclick="location.href='/signup.jsp'">Registration</button>
+    <button onclick="location.href='/signup'">Registration</button>
 </div>
 </html>
